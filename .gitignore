@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+#La carpeta de assets, temporalmente para las pruebas ok
+public/assets/*
