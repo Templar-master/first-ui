@@ -1,12 +1,9 @@
-import React from 'react';
-
-import Starter from './components/Starter';
-
+// import Starter from './Starter';
+import Routes from './routes/Routes';
 
 const App = () => {
   return (
-    <Starter />
+    <Routes algo={'algo'}/>
   );
 };
 export default App;
-

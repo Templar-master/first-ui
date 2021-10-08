@@ -1,3 +1,11 @@
+import profilePic from '../assets/images/users/avatar-3.jpg'
+
+const userPerfil = {
+  profilePic: profilePic,
+  userName: 'Denny Castillo',
+  userTitle: 'Founder'
+};
+
 const LeftSidebar = () => {
   const HREF_DEFAULT = '#';
   const handleClick = (e) => e.preventDefault();
@@ -8,8 +16,8 @@ const LeftSidebar = () => {
 
         <div className="leftbar-user">
           <a href={HREF_DEFAULT} onClick={handleClick}>
-            <img src="assets/images/users/avatar-1.jpg" alt="user" height="42" className="rounded-circle shadow-sm" />
-            <span className="leftbar-user-name">Dominic Keller</span>
+            <img src={userPerfil.profilePic} alt="user" height="42" className="rounded-circle shadow-sm" />
+            <span className="leftbar-user-name">{userPerfil.userName}</span>
           </a>
         </div>
 
@@ -39,6 +47,8 @@ const LeftSidebar = () => {
               </li>
             </ul>
           </li>
+
+          {/* ------------------------------------------------ */}
 
           <li className="side-nav-title side-nav-item">Apps</li>
 
