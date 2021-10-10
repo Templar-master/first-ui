@@ -1,8 +1,11 @@
 import { Redirect } from 'react-router';
-import { isUserAuthenticated } from '../../helpers/AuthUtils';
+// import { isUserAuthenticated } from '../../helpers/AuthUtils';
+import { useContext } from 'react';
+import AuthContext from '../../context/AuthContext';
 
 const Login = () => {
-  if (isUserAuthenticated()) {
+  const { auth, handleAuth } = useContext(AuthContext);
+  if (auth) {
     return <Redirect to='/' />
   }
   return (
@@ -25,7 +28,7 @@ const Login = () => {
                   <p className="text-muted mb-4">Enter your email address and password to access admin panel.</p>
                 </div>
 
-                <form action="#">
+                <form action="#" onSubmit={() => handleAuth()}>
 
                   <div className="form-group">
                     <label htmlFor="emailaddress">Email address</label>

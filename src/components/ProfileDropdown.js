@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+
 const ProfileDropdown = ({ profilePic, menuItems, userName, userTitle }) => {
   const HREF_DEFAULT = '#';
-  const handleClick = (e) => e.preventDefault();
+  // const handleClick = (e) => e.preventDefault();
 
   return (
     <>
@@ -19,10 +21,10 @@ const ProfileDropdown = ({ profilePic, menuItems, userName, userTitle }) => {
           <h6 className="text-overflow m-0">Welcome !</h6>
         </div>
         {menuItems.map((item, i) =>
-          <a href={HREF_DEFAULT} key={i + '-profile-menu'} onClick={handleClick} className="dropdown-item notify-item">
+          <Link to={item.redirectTo} key={i + '-profile-menu'} className="dropdown-item notify-item">
             <i className={`${item.icon} mr-1`}></i>
             <span>{item.label}</span>
-          </a>
+          </Link>
         )}
       </div>
     </>

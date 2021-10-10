@@ -1,31 +1,37 @@
 import { Route, Redirect } from 'react-router-dom';
 import { lazy } from 'react';
 
-import { isUserAuthenticated, getLoggedInUser } from '../helpers/AuthUtils';
+import { getLoggedInUser } from '../helpers/AuthUtils';
+
+import { useContext } from 'react';
+import AuthContext from '../context/AuthContext';
 
 const Uno = lazy(() => import('../pages/Uno'));
 const Login = lazy(() => import('../pages/auth/Login'));
+const Logout = lazy(()=>import ('../pages/auth/Logout'));
 
-const PrivateRoute = ({ component: Component, roles, ...rest }) => (
-  <Route
-    {...rest}
-    render={props => {
-      if (!isUserAuthenticated()) {
-        // not logged in so redirect to login page with the return url
-        return <Redirect to={{ pathname: '/account/login', state: { from: props.location } }} />;
-      }
-      const loggedInUser = getLoggedInUser();
-      // check if route is restricted by role
-      // console.log(loggedInUser);
-      if (roles && roles.indexOf(loggedInUser.role) === -1) {
-        // role not authorised so redirect to home page
-        return <Redirect to={{ pathname: '/' }} />;
-      }
-      // authorised so return component
-      return <Component {...props} />;
-    }}
-  />
-);
+const PrivateRoute = ({ component: Component, roles, ...rest }) => {
+  const { auth } = useContext(AuthContext);
+  return (
+    <Route
+      {...rest}
+      render={props => {
+        if (!auth) {
+          // not logged in so redirect to login page with the return url
+          return <Redirect to={{ pathname: '/account/login', state: { from: props.location } }} />;
+        }
+        const loggedInUser = getLoggedInUser();
+        // check if route is restricted by role
+        // console.log(loggedInUser);
+        if (roles && roles.indexOf(loggedInUser.role) === -1) {
+          // role not authorised so redirect to home page
+          return <Redirect to={{ pathname: '/' }} />;
+        }
+        // authorised so return component
+        return <Component {...props} />;
+      }}
+    />)
+};
 
 
 // root routes
@@ -394,7 +400,7 @@ const authRoutes = {
       path: '/account/logout',
       exact: true,
       name: 'Logout',
-      component: Uno,
+      component: Logout,
       route: Route,
     },
     {
