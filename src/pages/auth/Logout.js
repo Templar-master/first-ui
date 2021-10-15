@@ -5,10 +5,10 @@ import authContext from '../../context/AuthContext';
 const Logout = () => {
   const { handleAuth } = useContext(authContext);
 
-  // useEffect(()=>{
-  //   handleAuth();
-  // });
-
+  useEffect(()=>{
+    handleAuth();
+  });
+  
   return (
     <>
       <Suspense fallback={<div>LOADING</div>}>

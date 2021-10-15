@@ -4,6 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+document.body.dataset.layoutConfig =
+  '{"leftSidebarCondensed":false,"darkMode":true, "showRightSidebarOnStart": true}';
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

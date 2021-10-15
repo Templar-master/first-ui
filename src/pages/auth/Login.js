@@ -1,10 +1,13 @@
 import { Redirect } from 'react-router';
 // import { isUserAuthenticated } from '../../helpers/AuthUtils';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import AuthContext from '../../context/AuthContext';
 
+
 const Login = () => {
+  const [visiblePassword, setVisiblePassword] = useState(false);
   const { auth, handleAuth } = useContext(AuthContext);
+
   if (auth) {
     return <Redirect to='/' />
   }
@@ -17,7 +20,7 @@ const Login = () => {
 
               <div className="card-header pt-4 pb-4 text-center bg-primary">
                 <a href="index.html">
-                  <span><img src="assets/images/logo.png" alt="" height="18" /></span>
+                  <span><img src="/assets/images/logo.png" alt="" height="18" /></span>
                 </a>
               </div>
 
@@ -39,9 +42,9 @@ const Login = () => {
                     <a href="pages-recoverpw.html" className="text-muted float-right"><small>Forgot your password?</small></a>
                     <label htmlFor="password">Password</label>
                     <div className="input-group input-group-merge">
-                      <input type="password" id="password" className="form-control" placeholder="Enter your password" />
-                      <div className="input-group-append" data-password="false">
-                        <div className="input-group-text">
+                      <input type={visiblePassword ? 'text' : 'password'} id="password" className="form-control" placeholder="Enter your password" />
+                      <div className={`input-group-append${visiblePassword ? ' show-password' : ''}`} data-password={visiblePassword}>
+                        <div onClick={() => setVisiblePassword(!visiblePassword)} className="input-group-text">
                           <span className="password-eye"></span>
                         </div>
                       </div>

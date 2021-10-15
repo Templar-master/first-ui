@@ -8,7 +8,7 @@ import AuthContext from '../context/AuthContext';
 
 const Uno = lazy(() => import('../pages/Uno'));
 const Login = lazy(() => import('../pages/auth/Login'));
-const Logout = lazy(()=>import ('../pages/auth/Logout'));
+const Logout = lazy(() => import('../pages/auth/Logout'));
 
 const PrivateRoute = ({ component: Component, roles, ...rest }) => {
   const { auth } = useContext(AuthContext);
@@ -38,7 +38,7 @@ const PrivateRoute = ({ component: Component, roles, ...rest }) => {
 const rootRoute = {
   path: '/',
   exact: true,
-  component: () => <Redirect to="/dashboard/ecommerce" />,
+  component: () => <Redirect to="dashboard/analytics" />,
   route: PrivateRoute,
 };
 
