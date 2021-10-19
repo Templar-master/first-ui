@@ -1,7 +1,9 @@
+import SimpleBar from 'simplebar-react'; //Libreria instalada "npm install simplebar-react"
+
 const NotificationDropdown = ({ notifications }) => {
   const HREF_DEFAULT = '#';
   const handleClick = (e) => e.preventDefault();
-  
+
   return (
     <>
       <a className="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href={HREF_DEFAULT} id="topbar-notifydrop" role="button" aria-haspopup="true" >
@@ -22,7 +24,7 @@ const NotificationDropdown = ({ notifications }) => {
           </h5>
         </div>
 
-        <div style={{ maxHeight: '230px' }} data-simplebar>
+        <SimpleBar style={{ maxHeight: '230px' }}>
           {
             notifications.length > 0 ?
               notifications.map((item, i) =>
@@ -42,11 +44,11 @@ const NotificationDropdown = ({ notifications }) => {
               ) :
               <a href={HREF_DEFAULT} onClick={handleClick} className="dropdown-item notify-item">
                 <p className="text-center">
-                  <small className="text-muted">No hay nada </small>
+                  <small className="text-muted">NO Notifications</small>
                 </p>
               </a>
           }
-        </div>
+        </SimpleBar>
         {/* All*/}
         <a href={HREF_DEFAULT} onClick={handleClick} className="dropdown-item text-center text-primary notify-item notify-all">
           View All
