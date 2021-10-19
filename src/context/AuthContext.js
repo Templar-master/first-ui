@@ -3,29 +3,31 @@ import { useState, createContext, useEffect } from 'react';
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(false);
+  const [auth, setAuth] = useState(true);
   const handleAuth = () => setAuth(!auth);
 
   useEffect(() => {
     if (auth) {
       const script = document.createElement("script");
       script.id = 'init';
-      script.defer = 'true';
+      script.defer = true;
       script.text = `
-        $.LeftSidebar.init();
-        $.Topbar.init();
-        // $.LayoutThemeApp.init();
-        $.RightBar.init();
-        $.Portlet.init();
-        $.AdvanceFormApp.init();
-        $.Components.init();
-        $.RightBar.init();
+        setTimeout(() => {
+          $.LeftSidebar.init();
+          $.Topbar.init();
+          // $.LayoutThemeApp.init();
+          $.RightBar.init();
+          $.Portlet.init();
+          $.AdvanceFormApp.init();
+          $.Components.init();
+          $.RightBar.init();
+        }, 1); //esperamos 1 microsegundo para que cargue vendor que contiene jQuery
       `;
       script.type = 'text/javascript';
       document.body.appendChild(script);
-
       return () => document.getElementById('init').remove();//removemos el servicio
     }
+
     //---- otra forma llamando a un script pre defeinido
     // const script = document.createElement("script");
     // script.id = 'init';
