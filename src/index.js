@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 document.body.dataset.layoutConfig =
-  '{"leftSidebarCondensed":false,"darkMode":true, "showRightSidebarOnStart": true}';
+  '{"leftSidebarCondensed":false,"darkMode":true, "showRightSidebarOnStart": false}';
 
 ReactDOM.render(
   <React.StrictMode>

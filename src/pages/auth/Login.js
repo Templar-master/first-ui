@@ -1,4 +1,5 @@
-import { Redirect } from 'react-router';
+import { Navigate } from 'react-router-dom';
+
 // import { isUserAuthenticated } from '../../helpers/AuthUtils';
 import { useContext, useState } from 'react';
 import AuthContext from '../../context/AuthContext';
@@ -9,7 +10,7 @@ const Login = () => {
   const { auth, handleAuth } = useContext(AuthContext);
 
   if (auth) {
-    return <Redirect to='/' />
+    return <Navigate to='/' />
   }
   return (
     <div className="account-pages mt-5 mb-5">

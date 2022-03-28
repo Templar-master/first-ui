@@ -1,5 +1,5 @@
 import { Suspense, useContext, useEffect } from 'react';
-import { Redirect } from 'react-router';
+import { Navigate } from 'react-router-dom';
 import authContext from '../../context/AuthContext';
 
 const Logout = () => {
@@ -12,7 +12,7 @@ const Logout = () => {
   return (
     <>
       <Suspense fallback={<div>LOADING</div>}>
-        <Redirect to='/account/login' />
+        <Navigate to='/account/login' />
       </Suspense>
     </>)
 };

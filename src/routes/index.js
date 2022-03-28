@@ -1,4 +1,4 @@
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Navigate } from 'react-router-dom';
 import { lazy } from 'react';
 
 import { getLoggedInUser } from '../helpers/AuthUtils';
@@ -17,15 +17,15 @@ const PrivateRoute = ({ component: Component, roles, ...rest }) => {
       {...rest}
       render={props => {
         if (!auth) {
-          // not logged in so redirect to login page with the return url
-          return <Redirect to={{ pathname: '/account/login', state: { from: props.location } }} />;
+          // not logged in so redirect(Navigate) to login page with the return url
+          return <Navigate to={{ pathname: '/account/login', state: { from: props.location } }} />;
         }
         const loggedInUser = getLoggedInUser();
         // check if route is restricted by role
         // console.log(loggedInUser);
         if (roles && roles.indexOf(loggedInUser.role) === -1) {
-          // role not authorised so redirect to home page
-          return <Redirect to={{ pathname: '/' }} />;
+          // role not authorised so redirect(Navigate) to home page
+          return <Navigate to={{ pathname: '/' }} />;
         }
         // authorised so return component
         return <Component {...props} />;
@@ -38,7 +38,7 @@ const PrivateRoute = ({ component: Component, roles, ...rest }) => {
 const rootRoute = {
   path: '/',
   exact: true,
-  component: () => <Redirect to="dashboard/analytics" />,
+  component: () => <Navigate to="dashboard/analytics" />,
   route: PrivateRoute,
 };
 

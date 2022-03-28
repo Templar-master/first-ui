@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route, Redirect, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Navigate, Link, Routes as Rutas} from 'react-router-dom';
 
 import { allFlattenRoutes } from '../routes/index';
 // import { isUserAuthenticated } from '../helpers/AuthUtils';
@@ -23,10 +23,11 @@ const Routes = (props) => {
     <>
       <button onClick={handleAuth}>login??</button>
 
-      <Router><Link to='/dashboard/analytics'>al dash</Link>
+      <BrowserRouter>
+        <Link to='/dashboard/analytics'>al dash</Link>
         <Link to='/saxa'>otra cosa</Link>
         <Layout {...props}>
-          <Switch>
+          <Rutas>
             {
               allFlattenRoutes.map((route, index) =>
                 !route.children &&
@@ -42,11 +43,11 @@ const Routes = (props) => {
             {
               auth
                 ? <Route path='*' component={Error404} />
-                : <Route path='*'><Redirect to='/' /></Route>
+                : <Route path='*'><Navigate to='/' /></Route>
             }
-          </Switch>
+          </Rutas>
         </Layout>
-      </Router>
+      </BrowserRouter>
     </>
   );
 };
