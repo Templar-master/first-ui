@@ -1,12 +1,12 @@
 // import Starter from './Starter';
-import Routes from './routes/Routes';
+import RoutesAll from './routes/RoutesAll';
 
 import { AuthProvider } from './context/AuthContext';
 
 const App = () => {
   return (
     <AuthProvider>
-      <Routes algo={'algo'} />
+      <RoutesAll algo={'algo'} />
     </AuthProvider>
   );
 };

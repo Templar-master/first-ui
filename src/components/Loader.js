@@ -1,9 +1,13 @@
 const Loader = () => {
   return (
-    <div>
-      <h1>
-        LOADING DOG JEJEJE
-      </h1>
+    <div className="preloader">
+      <div className="status">
+        <div className="bouncing-loader">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
     </div>
   );
 };

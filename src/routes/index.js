@@ -1,4 +1,4 @@
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { lazy } from 'react';
 
 import { getLoggedInUser } from '../helpers/AuthUtils';
@@ -9,28 +9,35 @@ import AuthContext from '../context/AuthContext';
 const Uno = lazy(() => import('../pages/Uno'));
 const Login = lazy(() => import('../pages/auth/Login'));
 const Logout = lazy(() => import('../pages/auth/Logout'));
+const Forbidden = lazy(() => import('../pages/error/Forbidden403'))
+const Home = lazy(() => import('../pages/Home'))
+const PublicPage2 = lazy(() => import('../pages/PublicPage2'))
 
-const PrivateRoute = ({ component: Component, roles, ...rest }) => {
-  const { auth } = useContext(AuthContext);
-  return (
-    <Route
-      {...rest}
-      render={props => {
-        if (!auth) {
-          // not logged in so redirect(Navigate) to login page with the return url
-          return <Navigate to={{ pathname: '/account/login', state: { from: props.location } }} />;
-        }
-        const loggedInUser = getLoggedInUser();
-        // check if route is restricted by role
-        // console.log(loggedInUser);
-        if (roles && roles.indexOf(loggedInUser.role) === -1) {
-          // role not authorised so redirect(Navigate) to home page
-          return <Navigate to={{ pathname: '/' }} />;
-        }
-        // authorised so return component
-        return <Component {...props} />;
-      }}
-    />)
+const PrivateRoute = ({ children: Component, roles, ...rest }) => {
+  const { isAuthenticated } = useContext(AuthContext);
+  if (!isAuthenticated) {
+    // not logged in so redirect to login page with the return url
+    return <Navigate to={{ pathname: '/account/login', state: { from: 'url return???' } }} />
+  }
+  const loggedInUser = getLoggedInUser();
+  // check if route is restricted by role
+  if (roles && roles.indexOf(loggedInUser.role) === -1) {
+    // role not authorised so redirect to Forbidden Page
+    return <Navigate to='/forbidden' />
+  }
+  // authorised so return component
+  return <Component {...rest} />
+};
+
+// const AuthRoute = ({ children: Component, ...rest }) => {
+//   const { isAuthenticated } = useContext(AuthContext);
+//   return !isAuthenticated ? <Component {...rest} /> : <Navigate to={{ pathname: '/', state: { from: 'url return???' } }} />;
+// };
+
+// en lugar de PublicRoute podemos solo llamar al mismo componente en routes ok  
+const PublicRoute = ({ children: Component, ...rest }) => {
+  // return <Component {...rest} />;
+  return <Component {...rest} />;
 };
 
 
@@ -38,9 +45,31 @@ const PrivateRoute = ({ component: Component, roles, ...rest }) => {
 const rootRoute = {
   path: '/',
   exact: true,
-  component: () => <Navigate to="dashboard/analytics" />,
-  route: PrivateRoute,
+  component: Home,
+  route: Home,
 };
+
+const publicPages = {
+  path: '/public/pages',
+  exact: true,
+  name: 'Public',
+  children: [
+    {
+      path: '/public/page',
+      exact: true,
+      name: 'page',
+      component: Uno,
+      route: PublicRoute,
+    },
+    {
+      path: '/public/page2',
+      exact: true,
+      name: 'page',
+      component: PublicPage2,
+      route: PublicRoute,
+    },
+  ]
+}
 
 // dashboards
 const dashboardRoutes = {
@@ -58,23 +87,23 @@ const dashboardRoutes = {
     {
       path: '/dashboard/analytics',
       exact: true,
-      name: 'Analytics 2',
+      name: 'Analytics',
       component: Uno,
       route: PrivateRoute,
       children: [
         {
-          path: '/dashboard/analytics',
+          path: '/dashboard/analytics2',
           exact: true,
-          name: 'Analytics 3',
+          name: 'Analytics 2',
           component: Uno,
           route: PrivateRoute,
           children: [
             {
               path: '/dashboard/analytics',
               exact: true,
-              name: 'Analytics 4',
+              name: 'Analytics 3',
               component: Uno,
-              roles: ['Admin'],
+              roles: ['otro'],
               route: PrivateRoute,
             }
           ]
@@ -394,35 +423,43 @@ const authRoutes = {
       exact: true,
       name: 'Login',
       component: Login,
-      route: Route,
+      route: Login,
     },
     {
       path: '/account/logout',
       exact: true,
       name: 'Logout',
       component: Logout,
-      route: Route,
+      route: Logout,
     },
     {
       path: '/account/register',
       exact: true,
       name: 'Register',
       component: Uno,
-      route: Route,
+      route: Uno,
     },
     {
       path: '/account/confirm',
       exact: true,
       name: 'Confirm',
       component: Uno,
-      route: Route,
+      route: Uno,
     },
     {
       path: '/account/forget-password',
       exact: true,
       name: 'Forget Password',
       component: Uno,
-      route: Route,
+      route: Uno,
+    },
+    //Route Forbiden
+    {
+      path: '/forbidden',
+      exact: true,
+      name: 'Acceso Denegado',
+      component: Forbidden,
+      route: PrivateRoute,
     },
   ],
 };
@@ -711,9 +748,9 @@ const flattenRoutes = routes => {
 };
 
 // All routes
-const allRoutes = [rootRoute, dashboardRoutes, ...appRoutes, authRoutes, pageRoutes, uiRoutes];
+const allRoutes = [rootRoute, publicPages, dashboardRoutes, ...appRoutes, authRoutes, pageRoutes, uiRoutes];
 
-const authProtectedRoutes = [dashboardRoutes, ...appRoutes, pageRoutes, uiRoutes];
+const authProtectedRoutes = [dashboardRoutes, publicPages, ...appRoutes, pageRoutes, uiRoutes];
 
 const allFlattenRoutes = flattenRoutes(allRoutes);
 

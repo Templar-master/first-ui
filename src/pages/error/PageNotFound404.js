@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
-const Error404 = () => {
+
+const PageNotFound404 = () => {
   return (
     <>
       <div className="account-pages mt-5 mb-5">
@@ -7,11 +9,13 @@ const Error404 = () => {
           <div className="row justify-content-center">
             <div className="col-lg-5">
               <div className="card">
+                {/* Logo */}
                 <div className="card-header pt-4 pb-4 text-center bg-primary">
                   <a href="index.html">
-                    <span><img src={logo} alt="" height="18" /></span>
+                    <span><img src={logo} alt="logo" height="18" /></span>
                   </a>
                 </div>
+
                 <div className="card-body p-4">
                   <div className="text-center">
                     <h1 className="text-error">4<i className="mdi mdi-emoticon-sad"></i>4</h1>
@@ -20,15 +24,24 @@ const Error404 = () => {
                       happens to the best of us. Here's a
                       little tip that might help you get back on track.</p>
 
-                    <a className="btn btn-info mt-3" href="index.html"><i className="mdi mdi-reply"></i> Return Home</a>
+                    <Link className="btn btn-info mt-3" to='/'>
+                      <i className="mdi mdi-reply"></i> Return Home</Link>
                   </div>
-                </div>
+                </div> {/* end card-body */}
               </div>
-            </div>
+              {/* end card */}
+            </div>{/* end col */}
           </div>
+          {/* <! end row */}
         </div>
+        {/* end container */}
       </div>
+      {/* end page */}
+
+      <footer className="footer footer-alt">
+        2018 - 2022 © Hyper - Coderthemes.com
+      </footer>
     </>
   );
 };
-export default Error404;
+export default PageNotFound404;

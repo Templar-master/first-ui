@@ -69,7 +69,7 @@ const notifications = [
     id: 9,
     text: 'Denny Castillo recibio un aumento por ser el mejor',
     subText: '30 min ago',
-    image: '/assets/images/users/avatar-3.jpg',
+    image: profilePic,
   },
 ];
 const profileMenus = [

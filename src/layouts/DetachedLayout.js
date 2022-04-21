@@ -5,7 +5,7 @@ import Topbar from '../components/Topbar';
 import LeftSidebarArray from '../components/LeftSidebarArray';
 import Footer from '../components/Footer';
 import RightSidebar from '../components/RightSidebar';
-// import Error404 from '../pages/Error404';
+import Loader from '../components/Loader';
 
 const DetachedLayout = ({ children }) => {
   return (
@@ -15,18 +15,18 @@ const DetachedLayout = ({ children }) => {
       <div className="container-fluid">
         {/* Begin page */}
 
-          <div className="wrapper">
-            <LeftSidebarArray />
-            <div className="content-page">
-              <div className="content">
+        <div className="wrapper">
+          <LeftSidebarArray />
+          <div className="content-page">
+            <div className="content">
 
-                <Suspense fallback={<div>LOADING</div>}>{children}</Suspense>
+              <Suspense fallback={<Loader />}>{children}</Suspense>
 
-              </div> {/* End Content */}
-              <Footer />
-            </div> {/* content-page */}
-          </div> {/* end wrapper */}
-  
+            </div> {/* End Content */}
+            <Footer />
+          </div> {/* content-page */}
+        </div> {/* end wrapper */}
+
       </div>
       {/* END Container */}
       <RightSidebar />

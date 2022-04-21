@@ -1,3 +1,6 @@
+import avatar2 from '../assets/images/users/avatar-2.jpg';
+import avatar5 from '../assets/images/users/avatar-5.jpg'
+
 const TopbarSearch = ({ searchResults }) => {
   const resultItems = searchResults || [];
   return (
@@ -33,7 +36,7 @@ const TopbarSearch = ({ searchResults }) => {
           {/* item*/}
           <a href='/' className="dropdown-item notify-item">
             <div className="media">
-              <img className="d-flex mr-2 rounded-circle" src="/assets/images/users/avatar-2.jpg" alt="Generic placeholder" height="32" />
+              <img className="d-flex mr-2 rounded-circle" src={avatar2} alt="Generic placeholder" height="32" />
               <div className="media-body">
                 <h5 className="m-0 font-14">Erwin Brown</h5>
                 <span className="font-12 mb-0">UI Designer</span>
@@ -44,7 +47,7 @@ const TopbarSearch = ({ searchResults }) => {
           {/* item*/}
           <a href='/' className="dropdown-item notify-item">
             <div className="media">
-              <img className="d-flex mr-2 rounded-circle" src="/assets/images/users/avatar-5.jpg" alt="Generic placeholder" height="32" />
+              <img className="d-flex mr-2 rounded-circle" src={avatar5} alt="Generic placeholder" height="32" />
               <div className="media-body">
                 <h5 className="m-0 font-14">Jacob Deo</h5>
                 <span className="font-12 mb-0">Developer</span>
