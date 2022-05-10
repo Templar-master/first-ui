@@ -1,4 +1,3 @@
-// import Starter from './Starter';
 import RoutesAll from './routes/RoutesAll';
 
 import { AuthProvider } from './context/AuthContext';

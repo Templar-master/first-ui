@@ -1,7 +1,6 @@
 import { Navigate } from 'react-router-dom';
-
-// import { isUserAuthenticated } from '../../helpers/AuthUtils';
 import { useContext, useState } from 'react';
+
 import AuthContext from '../../context/AuthContext';
 import Footer from '../../components/Footer';
 

@@ -1,6 +1,7 @@
 import PageTitle from '../components/PageTitle';
 
-const Uno = () => {
+const Uno = (props) => {
+  console.log(props)
   return (
     <>
       <PageTitle

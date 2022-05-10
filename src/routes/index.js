@@ -9,9 +9,10 @@ import AuthContext from '../context/AuthContext';
 const Uno = lazy(() => import('../pages/Uno'));
 const Login = lazy(() => import('../pages/auth/Login'));
 const Logout = lazy(() => import('../pages/auth/Logout'));
-const Forbidden = lazy(() => import('../pages/error/Forbidden403'))
-const Home = lazy(() => import('../pages/Home'))
-const PublicPage2 = lazy(() => import('../pages/PublicPage2'))
+const Forbidden = lazy(() => import('../pages/error/Forbidden403'));
+// const Home = lazy(() => import('../pages/Home'));
+const PublicPage2 = lazy(() => import('../pages/PublicPage2'));
+const LandingPage = lazy(() => import('../pages/LandingPage'));
 
 const PrivateRoute = ({ children: Component, roles, ...rest }) => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -20,6 +21,7 @@ const PrivateRoute = ({ children: Component, roles, ...rest }) => {
     return <Navigate to={{ pathname: '/account/login', state: { from: 'url return???' } }} />
   }
   const loggedInUser = getLoggedInUser();
+  // console.log(loggedInUser);
   // check if route is restricted by role
   if (roles && roles.indexOf(loggedInUser.role) === -1) {
     // role not authorised so redirect to Forbidden Page
@@ -45,8 +47,9 @@ const PublicRoute = ({ children: Component, ...rest }) => {
 const rootRoute = {
   path: '/',
   exact: true,
-  component: Home,
-  route: Home,
+  component: () => <Navigate to='/dashboard/analytics' />,
+  route: PrivateRoute,
+  // route: PublicRoute,
 };
 
 const publicPages = {
@@ -64,7 +67,7 @@ const publicPages = {
     {
       path: '/public/page2',
       exact: true,
-      name: 'page',
+      name: 'page 1',
       component: PublicPage2,
       route: PublicRoute,
     },
@@ -103,7 +106,7 @@ const dashboardRoutes = {
               exact: true,
               name: 'Analytics 3',
               component: Uno,
-              roles: ['otro'],
+              // roles: ['Admin'],
               route: PrivateRoute,
             }
           ]
@@ -144,7 +147,7 @@ const calendarAppRoutes = {
   exact: true,
   name: 'Calendar',
   route: PrivateRoute,
-  roles: ['Admin', 'Tester'],
+  roles: ['Tester'],
   icon: 'uil-calender',
   component: Uno,
   header: 'Apps',
